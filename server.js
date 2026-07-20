@@ -12,14 +12,14 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'frontend')));
 
 // أي طلب على /api/... بيتبعت لنفس الموجّه المشترك
-app.all(/^\/api\/(.*)$/, async (req, res) => {
-  const pin = req.headers['x-app-pin'] || '';
-  const segments = req.params[0].split('/').filter(Boolean);
-  const r = await route(req.method, segments, req.body || {}, pin);
-  res.status(r.status).json(r.body);
+app.all(/^\/api\/(.*)$/, async(req, res) => {
+    const pin = req.headers['x-app-pin'] || '';
+    const segments = req.params[0].split('/').filter(Boolean);
+    const r = await route(req.method, segments, req.body || {}, pin);
+    res.status(r.status).json(r.body);
 });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`\n✅ دفتر حساب الجبنة شغال محليًا على: http://localhost:${PORT}\n`);
+    console.log(`\n✅ دفتر حساب الجبنة شغال محليًا على: http://localhost:${PORT}\n`);
 });
